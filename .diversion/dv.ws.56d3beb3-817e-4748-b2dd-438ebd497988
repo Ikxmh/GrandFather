@@ -1,0 +1,14 @@
+{
+  "WorkspaceID": "dv.ws.56d3beb3-817e-4748-b2dd-438ebd497988",
+  "RepoID": "dv.repo.870222ac-dfe6-4637-bf0c-417a6d129ba1",
+  "Path": "D:\\UnrealEProjects\\GrandFather",
+  "AccountID": "Google_115723969526722295390",
+  "BranchID": "dv.branch.1",
+  "BranchName": "main",
+  "CommitID": "dv.commit.10",
+  "Paused": false,
+  "ShouldDownload": false,
+  "RepoName": "GrandFather",
+  "ReadOnly": false,
+  "DigestMethod": "sha1"
+}
