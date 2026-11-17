@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "FlashlightComp.generated.h"
 
+class USpotLightComponent;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GRANDFATHER_API UFlashlightComp : public UActorComponent
@@ -17,6 +18,8 @@ public:
 	UFlashlightComp();
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	void SetSpotLight(USpotLightComponent* NewSpotLight);
 
 	void ToggleFlashLight();
 
@@ -34,8 +37,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flashlight")
 	float DrainRateModifier = 1.0f;
 
+	UPROPERTY()
+	USpotLightComponent* SpotLight = nullptr;
+
 	bool bIsOn = false;
 
+	void SetFlashLightState(bool bNewState);
 
 		
 };

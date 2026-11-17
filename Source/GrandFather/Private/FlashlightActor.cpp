@@ -12,6 +12,21 @@ AFlashlightActor::AFlashlightActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	
+	// for setting up flashlight mesh
+	FlashlightMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FlashlightMesh")); // makes a pointer
+	RootComponent = FlashlightMesh;
+	FlashlightMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	// for adding the light to flashlight
+	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
+	SpotLight->SetupAttachment(FlashlightMesh);
+	SpotLight->SetVisibility(false);
+
+	FlashlightComp = CreateDefaultSubobject<UFlashlightComp>(TEXT("FlashlightComp"));
+	FlashlightComp->SetSpotLight(SpotLight);
+
+
 
 }
 

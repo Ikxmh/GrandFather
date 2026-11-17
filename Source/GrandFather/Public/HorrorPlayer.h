@@ -12,6 +12,7 @@
 class UInputMappingContext;
 class UInputAction;
 class UFlashlightComp;
+class AFlashlightActor;
 
 UCLASS()
 class GRANDFATHER_API AHorrorPlayer : public ACharacter
@@ -49,6 +50,15 @@ protected:
 	float WalkSpeed = 600.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement|Speeds")
 	float SprintSpeed = 800.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "FlashLight")
+	TSubclassOf<AFlashlightActor> FlashlightClass;
+
+	UPROPERTY()
+	AFlashlightActor* EquippedFlashlight = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Flashlight")
+	FVector FlashlightOffset = FVector(30.0f, 15.0f, -15.0f);
 
 	// getting access to the Move and Look from template.
 	void Move(const FInputActionValue& Value);

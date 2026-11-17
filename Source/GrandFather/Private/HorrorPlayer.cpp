@@ -5,6 +5,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Camera/CameraComponent.h"
+#include "FlashlightActor.h"
 
 // Sets default values
 AHorrorPlayer::AHorrorPlayer()
@@ -45,6 +47,30 @@ void AHorrorPlayer::BeginPlay()
 				Subsystem->AddMappingContext(DefaultMappingContext, 0);
 			}
 		}
+	}
+
+	if (FlashlightClass)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+
+		EquippedFlashlight = GetWorld()->SpawnActor<AFlashlightActor>(FlashlightClass, SpawnParams);
+		
+
+		if (EquippedFlashlight)
+		{
+			UCameraComponent* PlayerCam = FindComponentByClass<UCameraComponent>();
+			USceneComponent* AttachTarget = FindComponentByClass<UCameraComponent>();
+
+			if (!AttachTarget)
+			{
+				AttachTarget = GetRootComponent();
+			}
+
+			EquippedFlashlight->AttachToComponent(AttachTarget, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+			EquippedFlashlight->SetActorRelativeLocation(FlashlightOffset);
+		}
+		
 	}
 
 	
@@ -165,9 +191,9 @@ void AHorrorPlayer::StopCrouching()
 
 void AHorrorPlayer::OnFlashlightButtonPressed()
 {
-	if (FlashlightComponent)
+	if (EquippedFlashlight)
 	{
-		FlashlightComponent->ToggleFlashLight();
+		EquippedFlashlight->ToggleFlashLight();
 	}
 }
 
